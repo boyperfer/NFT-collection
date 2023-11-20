@@ -1,0 +1,9 @@
+const NFTActionTypes = {
+    FETCH_NFT_START: 'FETCH_NFT_START',
+    FETCH_NFT_SUCCESS: 'FETCH_NFT_SUCCESS',
+    FETCH_NFT_FAILURE: 'FETCH_NFT_FAILURE',
+	FILTER_NFT: 'FILTER_NFT'
+};
+
+export default NFTActionTypes;
+
