@@ -14,6 +14,7 @@ import {getCollectionIDByName} from '../../redux/collection/collection.utils';
 import CardList from '../../components/card-list/card-list.component';
 import SearchBox from '../../components/search-box/search-box.component';
 
+import { CollectionContainer } from './collection.styles';
 const CollectionPage = () => {
 	const dispatch = useDispatch();
 	const collectionName = useParams().collectionName;
@@ -46,14 +47,14 @@ const CollectionPage = () => {
 	};
 
 	return (
-		<div>
+		<CollectionContainer>
 			<SearchBox
 				className='monsters-search-box'
 				onChangeHandler={onSearchChange}
 				placeholder='search token id'
 			/>
 			<CardList nfts={filteredNFTs} />
-		</div>
+		</CollectionContainer>
 	);
 };
 

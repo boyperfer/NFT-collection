@@ -19,3 +19,8 @@ export const filterNFT = nftID => ({
     payload: nftID 
 }) 
 
+export const buyNFT = nft => ({
+    type: NFTActionTypes.BUY_NFT,
+    payload: nft
+}) 
+

@@ -17,4 +17,10 @@ export const selectFilteredNFTs = createSelector(
     ({ filteredNFTs }) => filteredNFTs 
 );
 
+export const selectNFTtoBuy = createSelector(
+    [selectNFT],
+    ({ nftToBuy }) => nftToBuy 
+);
+
+
 

@@ -16,8 +16,9 @@ const Header = ({currentUser, hidden, signOutStart}) => {
 	return (
 		<HeaderContainer>
 			<OptionsContainer>
-				<OptionLink to='/shop'>SHOP</OptionLink>
-				<OptionLink to='/contact'>CONTACT</OptionLink>
+				<OptionLink to='/'>HOME</OptionLink>
+				<OptionLink to='/deposit'>DEPOSIT</OptionLink>
+				<OptionLink to='/profile'>PROFILE</OptionLink>
 				{ isSignin ? (
 					<OptionLink as='div' onClick={() => dispatch(signOut())}>
                         SIGN OUT

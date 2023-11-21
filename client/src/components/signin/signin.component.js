@@ -42,7 +42,10 @@ const SignIn = () => {
 			.then(data => {
 				console.log(data)
 				if(data.success) {
-					dispatch(setCurrentUser(users[data.result[0].trader_id]))	
+					const newUser = users[data.result[0].trader_id]
+					newUser['balance'] = data.result[0].balance
+					newUser['ethereum_balance'] = data.result[0].ethereum_balance
+					dispatch(setCurrentUser(newUser))	
 					navigate('/')
 				} else {
 					alert("your username or password is incorrect")

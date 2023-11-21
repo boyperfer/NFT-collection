@@ -3,7 +3,7 @@ import { hashObjectUser } from "./user.utils";
 
 const INITIAL_STATE = {
     isFetching: true,
-    users: [],
+    users: {},
 	currentUser: {},
 	isSignin: false,
     message: ''

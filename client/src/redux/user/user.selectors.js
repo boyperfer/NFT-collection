@@ -12,6 +12,11 @@ export const selectUsers = createSelector(
     ({ users }) => users 
 );
 
+export const selectCurrentUser = createSelector(
+    [selectUser],
+    ({ currentUser }) => currentUser 
+);
+
 export const selectIsSignIn = createSelector(
     [selectUser],
     ({ isSignin }) => isSignin

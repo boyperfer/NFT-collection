@@ -11,6 +11,9 @@ import {Provider} from 'react-redux';
 import reportWebVitals from './reportWebVitals.js';
 import CollectionPage from './pages/collection/collection.component';
 import SignInPage from './pages/sign-in/sign-in-page.component';
+import UserPage from './pages/user/user.page';
+import NFTCheckout from './components/nft-checkout/nft-checkout.component';
+import DepositPage from './pages/deposit/deposit-page.component';
 
 const router = createBrowserRouter([
 	{
@@ -26,6 +29,18 @@ const router = createBrowserRouter([
 	{
 		path: '/signin',
 		element: <SignInPage />,
+	},
+	{
+		path: '/profile',
+		element: <UserPage />,
+	},
+	{
+		path: '/checkout',
+		element: <NFTCheckout/>,
+	},
+	{
+		path: '/deposit',
+		element: <DepositPage/>,
 	},
 ]);
 

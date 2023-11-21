@@ -31,6 +31,7 @@ CREATE TABLE NFT (
     collection_id BIGINT,
 	ownership_id BIGINT,
 	url_image VARCHAR(255),
+	price DOUBLE PRECISION,
 	FOREIGN KEY (ownership_id) REFERENCES Traders(trader_id),
 	FOREIGN KEY (collection_id) REFERENCES Collections(collection_id),
 	UNIQUE (collection_id, token_id)

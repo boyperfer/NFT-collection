@@ -7,7 +7,7 @@ export const HeaderContainer = styled.div`
     display: flex;
     justify-content: flex-end;
     margin-bottom: 25px;
-	color: white;
+	color: black;
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -17,7 +17,7 @@ export const LinkContainer = styled(Link)`
     height: 100%;
     width: 70px;
     padding: 25px;
-	color: white;
+	color: black;
 `
 
 export const OptionsContainer = styled.div`
@@ -26,10 +26,10 @@ export const OptionsContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-	color: white;
+	color: black;
 `
 
 export const OptionLink = styled(Link)`
     padding: 10px 15px;
-	color: white;
+	color: black;
 `

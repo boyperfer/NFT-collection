@@ -4,6 +4,7 @@ import {filteredNFTsUtil} from './nft.utils';
 const INITIAL_STATE = {
     isFetching: true,
     nfts: [],
+	nftToBuy: [],
 	filteredNFTs: [],
     message: ''
 };
@@ -31,6 +32,11 @@ const nftReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				filteredNFTs: filteredNFTsUtil(state.nfts, action.payload)
+			}
+		case NFTActionTypes.BUY_NFT:
+			return {
+				...state,
+				nftToBuy: action.payload
 			}
         default:
             return state;
