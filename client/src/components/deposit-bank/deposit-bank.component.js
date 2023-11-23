@@ -1,5 +1,5 @@
 import {useState, } from 'react';
-import { useSelector} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import {useNavigate} from 'react-router';
 
 import {selectCurrentUser} from '../../redux/user/user.selectors';
@@ -8,8 +8,10 @@ import FormInput from '../../components/form-input/form-input.component';
 import CustomButton from '../../components/custom-buttons/custom-button.component';
 
 import {TitleContainer, ButtonsContainer, DepositContainer} from './deposit-bank.styles';
+import {setBalance, setEthereum} from '../../redux/user/user.actions';
 
 const DepositBank = ({paymentType}) => {
+	const dispatch = useDispatch()
 	const currentUser = useSelector(selectCurrentUser);
 	const navigate = useNavigate()
 	const {trader_id} = currentUser;
@@ -41,7 +43,11 @@ const DepositBank = ({paymentType}) => {
 			.then(response => response.json())
 			.then(data => {
 				if(data.success) {
+					paymentType == "Bank Transfer" ? 
+						dispatch(setBalance(currentUser.balance + parseInt(amount))) : 
+						dispatch(setEthereum(currentUser.ethereum_balance + parseInt(amount)));
 					navigate('/');
+
 				} else {
 					alert('The transaction was failed');
 				}

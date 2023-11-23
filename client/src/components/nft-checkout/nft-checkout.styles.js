@@ -31,3 +31,7 @@ export const TextContainer = styled.div`
 	font-size: 30px;
 `
 
+export const OwnedContainer = styled.div`
+	font-size: 50px;
+	font-weight: bold;
+`

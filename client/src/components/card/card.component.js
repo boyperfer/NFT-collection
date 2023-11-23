@@ -29,8 +29,6 @@ const Card = ({nft}) => {
 				console.error('Error fetching Ethereum price:', error);
 			});
 	}, [])
-	const priceInUSD = 
-	console.log(ethereumPrice);
 	return (
 		<CardContainer>
 			<img

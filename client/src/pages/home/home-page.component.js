@@ -35,6 +35,7 @@ const HomePage = () => {
 					className='monsters-search-box'
 					onChangeHandler={onSearchChange}
 					placeholder='search contract'
+					type={"search"}
 				/>
 				<CustomButton onClick={() => navigate(`/collections/${getCollectionNameByContract(collection,searchField)}`)} > search </CustomButton>
 			</SearchContainer>

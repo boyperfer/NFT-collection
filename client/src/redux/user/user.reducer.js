@@ -40,6 +40,23 @@ const userReducer = (state = INITIAL_STATE, action) => {
 				isSignin: false,
 				currentUser: {}
 			};
+		case UserActionTypes.SET_BALANCE:
+			return {
+				...state,
+				currentUser: {...state.currentUser, balance: action.payload},
+			};
+
+		case UserActionTypes.SET_ETHEREUM:
+			return {
+				...state,
+				currentUser: {...state.currentUser, ethereum_balance: action.payload},
+			};
+
+		case UserActionTypes.SET_VOLUME:
+			return {
+				...state,
+				currentUser: {...state.currentUser, volume: state.currentUser.volume + action.payload},
+			};
         default:
             return state;
     }

@@ -14,6 +14,8 @@ import SignInPage from './pages/sign-in/sign-in-page.component';
 import UserPage from './pages/user/user.page';
 import NFTCheckout from './components/nft-checkout/nft-checkout.component';
 import DepositPage from './pages/deposit/deposit-page.component';
+import TransactionPage from './pages/transaction/transaction.page';
+import VolumePage from './pages/volume/volume.page';
 
 const router = createBrowserRouter([
 	{
@@ -41,6 +43,14 @@ const router = createBrowserRouter([
 	{
 		path: '/deposit',
 		element: <DepositPage/>,
+	},
+	{
+		path: '/transaction',
+		element: <TransactionPage/>,
+	},
+	{
+		path: '/volume',
+		element: <VolumePage/>,
 	},
 ]);
 

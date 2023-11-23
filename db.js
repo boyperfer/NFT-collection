@@ -23,7 +23,7 @@ const insertNFTs = (collection_name, limit, next, collection_id) => {
 			  .then(({data : {intervals}}) => {
 				
 				nfts.map(({identifier, image_url}, i) => {
-					price = (intervals[0].average_price + Math.random() * (10 - 0) + 0).toFixed(4);
+					price = (intervals[2].average_price + Math.random() * (10 - 0) + 0).toFixed(4);
 					const sql = `INSERT INTO NFT (token_id, collection_id, ownership_id, url_image, price) VALUES (${identifier}, '${collection_id}', ${i + 1}, '${image_url}', ${price});`;
 					db.query(sql, (error, result) => {
 						if (error) {

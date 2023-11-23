@@ -11,3 +11,27 @@ export const shortenAddress = (address) => {
 
 	return `${prefix}...${suffix}`;
 };
+
+export const getCentralTime = (time) => {
+	// Convert UTC timestamp to a JavaScript Date object
+	const date = new Date(time);
+
+	// Specify the timezone (in this case, "America/Chicago" for Central Time)
+	const timeZone = "America/Chicago";
+
+	// Create a formatter with the desired options
+	const formatter = new Intl.DateTimeFormat("en-US", {
+	  timeZone,
+	  year: "numeric",
+	  month: "numeric",
+	  day: "numeric",
+	  hour: "numeric",
+	  minute: "numeric",
+	  second: "numeric",
+	  timeZoneName: "short",
+	});
+
+	// Format the date and log the result
+	const centralTime = formatter.format(date);
+	return centralTime
+}

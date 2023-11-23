@@ -29,16 +29,18 @@ export const TableContainer = styled.div`
 export const TypeContainer = styled.div`
 	padding-left: 50px;
 	font-weight: bold;
+	font-size: 20px;
 `
 
 export const DateContainer = styled.div`
 	padding-left: 50px;
 	font-weight: light;
+	font-size: 20px;
 `
 
 export const AmountContainer = styled.div`
 	width: 50%;
-	font-size: 16px;
+	font-size: 20px;
 `
 export const MoneyContainer = styled.div`
 	padding-left: 50px;

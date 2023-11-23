@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import { fetchTransactionStart } from "../../redux/transaction/transaction.actions";
+import { fetchPaymentTransactionStart } from "../../redux/transaction/transaction.actions";
 
 import DepositBank from "../../components/deposit-bank/deposit-bank.component";
 import Header from "../../components/header/header.component";
@@ -13,7 +13,7 @@ import { DepositContainer, DepositPageContainer } from "./deposit-page.styles";
 const DepositPage = () =>{
 	const dispatch = useDispatch()
 	useEffect(() => {
-		dispatch(fetchTransactionStart())
+		dispatch(fetchPaymentTransactionStart())
 	}, [dispatch]);
 	
 	return (

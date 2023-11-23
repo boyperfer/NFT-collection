@@ -19,6 +19,21 @@ export const setCurrentUser = user => ({
     payload: user  
 });
 
+export const setBalance = balance => ({
+    type: UserActionTypes.SET_BALANCE,
+    payload: balance 
+});
+
+export const setEthereum = amount => ({
+    type: UserActionTypes.SET_ETHEREUM,
+    payload: amount 
+});
+
+export const setVolume = amount => ({
+    type: UserActionTypes.SET_VOLUME,
+    payload: amount 
+});
+
 export const signOut = () => ({
     type: UserActionTypes.SIGN_OUT,
 });

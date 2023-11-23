@@ -3,8 +3,15 @@ CREATE TABLE CommissionRates(
     commission_rate DECIMAL(5, 4)
 );
 
+-- Table for storing user information
+CREATE TABLE Users (
+	trader_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE Traders (
-    trader_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    trader_id BIGINT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     phone_number VARCHAR(15) NOT NULL,
@@ -16,7 +23,10 @@ CREATE TABLE Traders (
     zip_code VARCHAR(10),
     ethereum_address VARCHAR(42) UNIQUE NOT NULL, 
 	trader_level VARCHAR(10) DEFAULT 'SILVER',
-	FOREIGN KEY (trader_level) REFERENCES CommissionRates(trader_level)
+	volume DOUBLE PRECISION DEFAULT 0,
+	last_transaction_month INT,
+	FOREIGN KEY (trader_level) REFERENCES CommissionRates(trader_level),
+	FOREIGN KEY (trader_id) REFERENCES Users(trader_id)
 );
 
 CREATE TABLE Collections (
@@ -37,13 +47,6 @@ CREATE TABLE NFT (
 	UNIQUE (collection_id, token_id)
 );
 
--- Table for storing user information
-CREATE TABLE Users (
-	trader_id BIGINT PRIMARY KEY,
-    username VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-	FOREIGN KEY (trader_id) REFERENCES Traders(trader_id)
-);
 
 -- Table for storing account balances
 CREATE TABLE AccountBalances (
@@ -55,14 +58,13 @@ CREATE TABLE AccountBalances (
 
 -- Table for storing NFT transactions
 CREATE TABLE NFTTransactions (
-    transaction_id BIGINT PRIMARY KEY,
+    transaction_id BIGINT PRIMARY KEY AUTO_INCREMENT,
 	commission_fee DECIMAL(18,2),
-	comission_type VARCHAR(10),
+	commission_type VARCHAR(10),
     contract_address VARCHAR(255) NOT NULL,
     nft_id BIGINT NOT NULL,
-    transaction_amount DECIMAL(18, 2) NOT NULL,
+    transaction_amount DOUBLE PRECISION NOT NULL,
     transaction_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	total_price DOUBLE PRECISION,
 	seller BIGINT,
 	buyer BIGINT,
     FOREIGN KEY (nft_id) REFERENCES NFT(nft_id),
@@ -73,7 +75,7 @@ CREATE TABLE NFTTransactions (
 CREATE TABLE PaymentTransactions (
     transaction_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     amount_paid DECIMAL(10, 2) NOT NULL,
-    payment_date DATE NOT NULL,
+    payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     payment_type VARCHAR(50) NOT NULL,
     trader_id BIGINT NOT NULL,
     payment_address VARCHAR(255) NOT NULL,
@@ -88,45 +90,55 @@ CREATE TABLE CancellationLogs (
     FOREIGN KEY (transaction_id) REFERENCES PaymentTransactions(transaction_id)
 );
 
--- Stored procedure to retrieve aggregate transaction information
 DELIMITER //
-CREATE PROCEDURE GetTransactionTotals(
-    IN start_date DATE,
-    IN end_date DATE
-)
+
+CREATE TRIGGER SetDefaultMonth
+BEFORE INSERT ON Traders
+FOR EACH ROW
+SET NEW.last_transaction_month = IFNULL(NEW.last_transaction_month, MONTH(NOW()));
+
+//
+
+CREATE TRIGGER ResetTraderLevelTrigger
+BEFORE UPDATE ON Traders
+FOR EACH ROW
 BEGIN
-    -- Daily total transactions
-    SELECT
-        DATE(payment_date) AS transaction_date,
-        COUNT(*) AS daily_transaction_count,
-        SUM(amount_paid) AS daily_transaction_amount
-    FROM PaymentTransactions
-    WHERE payment_date BETWEEN start_date AND end_date
-    GROUP BY DATE(payment_date);
+    DECLARE current_month INT;
 
-    -- Weekly total transactions
-    SELECT
-        YEARWEEK(payment_date) AS week_number,
-        COUNT(*) AS weekly_transaction_count,
-        SUM(amount_paid) AS weekly_transaction_amount
-    FROM PaymentTransactions
-    WHERE payment_date BETWEEN start_date AND end_date
-    GROUP BY YEARWEEK(payment_date);
+    -- Get the current month
+    SET current_month = MONTH(NOW());
 
-    -- Monthly total transactions
-    SELECT
-        DATE_FORMAT(payment_date, '%Y-%m') AS month,
-        COUNT(*) AS monthly_transaction_count,
-        SUM(amount_paid) AS monthly_transaction_amount
-    FROM PaymentTransactions
-    WHERE payment_date BETWEEN start_date AND end_date
-    GROUP BY DATE_FORMAT(payment_date, '%Y-%m');
-END //
+    -- Check if it's a new month
+    IF NEW.last_transaction_month IS NULL OR NEW.last_transaction_month != current_month THEN
+		SET NEW.trader_level = 
+			CASE
+                WHEN NEW.volume > 500 THEN 'GOLD'
+                ELSE 'SILVER'
+            END;
+        SET NEW.volume = 0;
+        SET NEW.last_transaction_month = current_month;
+    END IF;
+END;
+
+//
+
 DELIMITER ;
 
 INSERT INTO CommissionRates (trader_level, commission_rate) VALUES
 ('SILVER', 0.02),
 ('GOLD', 0.03);
+
+INSERT INTO Users (trader_id, username, password) VALUES
+(1, 'john_doe', 'password123'),
+(2, 'jane_smith', 'securepass456'),
+(3, 'bob_johnson', 'strong_password'),
+(4, 'alice_williams', 'qwerty'),
+(5, 'charlie_brown', 'letmein'),
+(6, 'eva_davis', 'myp@ssw0rd'),
+(7, 'frank_miller', 'pass1234'),
+(8, 'grace_wilson', 'abc123'),
+(9, 'henry_anderson', 'password456'),
+(10, 'ivy_moore', 'securepass789');
 
 INSERT INTO Traders (trader_id, first_name, last_name, phone_number, cell_phone_number, email_address, street_address, city, state, zip_code, ethereum_address, trader_level) VALUES
 (1, 'John', 'Doe', '123-456-7890', '987-654-3210', 'john.doe@email.com', '123 Main St', 'Cityville', 'CA', '12345', '0x1234567890123456789012345678901234567890', 'SILVER'),
@@ -141,18 +153,6 @@ INSERT INTO Traders (trader_id, first_name, last_name, phone_number, cell_phone_
 (10, 'Ivy', 'Moore', '012-345-6789', '987-654-3210', 'ivy.moore@email.com', '567 Cedar St', 'Villageton', 'TX', '12345', '0x3456789012345678901234567890123456789012', 'GOLD');
 
 
-
-INSERT INTO Users (trader_id, username, password) VALUES
-(1, 'john_doe', 'password123'),
-(2, 'jane_smith', 'securepass456'),
-(3, 'bob_johnson', 'strong_password'),
-(4, 'alice_williams', 'qwerty'),
-(5, 'charlie_brown', 'letmein'),
-(6, 'eva_davis', 'myp@ssw0rd'),
-(7, 'frank_miller', 'pass1234'),
-(8, 'grace_wilson', 'abc123'),
-(9, 'henry_anderson', 'password456'),
-(10, 'ivy_moore', 'securepass789');
 
 -- Insert data into AccountBalances table
 INSERT INTO AccountBalances (trader_id, balance, ethereum_balance) VALUES

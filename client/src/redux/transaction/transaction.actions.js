@@ -1,16 +1,34 @@
 import TransactionActionTypes from "./transaction.types";
 
-export const fetchTransactionStart = () => ({
-    type: TransactionActionTypes.FETCH_TRANSACTION_START,
+export const fetchPaymentTransactionStart = () => ({
+    type: TransactionActionTypes.FETCH_PAYMENT_TRANSACTION_START,
 });
 
-export const fetchTransactionSuccess = transactions => ({
-    type: TransactionActionTypes.FETCH_TRANSACTION_SUCCESS,
+export const fetchPaymentTransactionSuccess = transactions => ({
+    type: TransactionActionTypes.FETCH_PAYMENT_TRANSACTION_SUCCESS,
     payload: transactions 
 });
 
-export const fetchTransactionFailure = error => ({
-    type: TransactionActionTypes.FETCH_TRANSACTION_FAILURE,
+export const fetchPaymentTransactionFailure = error => ({
+    type: TransactionActionTypes.FETCH_PAYMENT_TRANSACTION_FAILURE,
     payload: error
+});
+
+export const fetchNFTTransactionStart = () => ({
+    type: TransactionActionTypes.FETCH_NFT_TRANSACTION_START,
+});
+
+export const fetchNFTTransactionSuccess = transactions => ({
+    type: TransactionActionTypes.FETCH_NFT_TRANSACTION_SUCCESS,
+    payload: transactions 
+});
+
+export const fetchNFTTransactionFailure = error => ({
+    type: TransactionActionTypes.FETCH_NFT_TRANSACTION_FAILURE,
+    payload: error
+});
+
+export const toggleBuying = () => ({
+    type: TransactionActionTypes.TOGGLE_BUYING,
 });
 
