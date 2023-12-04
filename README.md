@@ -5,8 +5,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ### REQUIREMENTS
 
 `Node JS`
+
 `Github CLI`
+
 `MySQL`
+
 `npm`
 
 ### Run the app
@@ -23,7 +26,7 @@ run `npm install`
 
 run `node db.js` to fetch NFTs and collections from OpenSea API and store it into the database 
 
-run `node server.js` to connect to the data	
+run `node server.js` to connect to the database
 
 finally move to client `cd client` (run `npm install` as needed) and run `npm start` to run the app 
 
