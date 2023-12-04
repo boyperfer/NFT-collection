@@ -4,9 +4,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### REQUIREMENTS
 
-`nodejs`
-
-`mysql`
+`Node JS`
+`Github CLI`
+`MySQL`
+`npm`
 
 ### Run the app
 
