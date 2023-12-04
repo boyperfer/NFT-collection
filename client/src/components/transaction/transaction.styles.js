@@ -15,6 +15,11 @@ export const TransactionContainer = styled.div`
 export const TransferContainer = styled.div`
 	display: flex;
 	margin : 40px 50px;
+	justify-content: space-between;
+`
+
+export const StatusContainer = styled.div`
+	margin: 0 100px;
 `
 
 export const HeaderContainer = styled.div`

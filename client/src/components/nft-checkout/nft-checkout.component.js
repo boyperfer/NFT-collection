@@ -109,7 +109,7 @@ const NFTCheckout = () => {
 									{
 										!isAuthorized ? (
 											<div>
-												<h3> Please enter your password to buy </h3>
+												<h3> Please enter your password </h3>
 												<SearchBox onChangeHandler={handleChange} type={'password'} placeholder={'password'}/>
 												<CustomButton onClick={() => handleClick()}>Verify</CustomButton>
 											</div>

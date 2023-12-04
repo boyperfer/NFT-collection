@@ -43,9 +43,10 @@ const DepositBank = ({paymentType}) => {
 			.then(response => response.json())
 			.then(data => {
 				if(data.success) {
-					paymentType == "Bank Transfer" ? 
+					paymentType === "Bank Transfer" ? 
 						dispatch(setBalance(currentUser.balance + parseInt(amount))) : 
 						dispatch(setEthereum(currentUser.ethereum_balance + parseInt(amount)));
+					alert("deposit successfully")
 					navigate('/');
 
 				} else {

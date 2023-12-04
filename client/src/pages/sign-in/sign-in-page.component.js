@@ -6,6 +6,7 @@ import { fetchUserStart } from '../../redux/user/user.actions';
 import { SignInContainer } from './sign-in-page.styles'
 import SignIn from '../../components/signin/signin.component'
 import Header from '../../components/header/header.component';
+import SignUp from '../../components/sign-up/sign-up.component';
 
 const SignInPage = () => {
 
@@ -18,6 +19,7 @@ const SignInPage = () => {
 		<SignInContainer>
 			<Header/>
 			<SignIn/>
+			<SignUp/>
 		</SignInContainer>
 	)	
 

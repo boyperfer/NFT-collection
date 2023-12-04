@@ -31,6 +31,10 @@ export const getCentralTime = (time) => {
 	  timeZoneName: "short",
 	});
 
+	// const formatter = new Intl.DateTimeFormat("en-US", {
+	//   timeZone,
+	// });
+
 	// Format the date and log the result
 	const centralTime = formatter.format(date);
 	return centralTime

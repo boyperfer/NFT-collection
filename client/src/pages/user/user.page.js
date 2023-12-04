@@ -5,7 +5,7 @@ import Header from "../../components/header/header.component"
 import User from "../../components/user/user-profile.component"
 import {selectNFTs} from "../../redux/nft/nft.selectors"
 import {selectCurrentUser, selectIsSignIn} from "../../redux/user/user.selectors"
-import { TextContainer } from "./user-page.styles"
+import { TextContainer, UserContainer } from "./user-page.styles"
 
 const UserPage = () => {
 	const isSignin = useSelector(selectIsSignIn)
@@ -17,12 +17,12 @@ const UserPage = () => {
 
 	return (
 		isSignin ? (
-			<div>
+			<UserContainer>
 				<Header/>
 				<User/>
 				<h1> NFTs owned </h1>
 				<CardList nfts={newFilteredNFTs}/>
-			</div>
+			</UserContainer>
 		) : (
 			<div>
 				<Header/>

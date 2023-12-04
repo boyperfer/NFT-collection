@@ -79,6 +79,7 @@ CREATE TABLE PaymentTransactions (
     payment_type VARCHAR(50) NOT NULL,
     trader_id BIGINT NOT NULL,
     payment_address VARCHAR(255) NOT NULL,
+    status VARCHAR(255) NOT NULL DEFAULT 'FINALIZED',
 	FOREIGN KEY (trader_id) REFERENCES Traders(trader_id)
 );
 
@@ -97,6 +98,15 @@ BEFORE INSERT ON Traders
 FOR EACH ROW
 SET NEW.last_transaction_month = IFNULL(NEW.last_transaction_month, MONTH(NOW()));
 
+//
+
+DELIMITER //
+
+CREATE TRIGGER initializeBalance
+AFTER INSERT ON Traders 
+BEGIN
+    INSERT INTO AccountBalances (trader_id, balance, ethereum_balance) VALUES (NEW.trader_id, 0, 0);
+END;
 //
 
 CREATE TRIGGER ResetTraderLevelTrigger

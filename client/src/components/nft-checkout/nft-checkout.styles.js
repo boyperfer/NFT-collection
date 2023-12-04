@@ -2,7 +2,7 @@ import { styled } from "styled-components"
 export const NFTContainer = styled.div`
 	max-width: 1000px;
 	height: 50vh;
-    margin: 20px auto;
+    margin: 90px auto;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

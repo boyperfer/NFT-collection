@@ -16,6 +16,7 @@ import NFTCheckout from './components/nft-checkout/nft-checkout.component';
 import DepositPage from './pages/deposit/deposit-page.component';
 import TransactionPage from './pages/transaction/transaction.page';
 import VolumePage from './pages/volume/volume.page';
+import SignUpPage from './pages/sign-up/sign-up.page';
 
 const router = createBrowserRouter([
 	{
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
 	{
 		path: '/volume',
 		element: <VolumePage/>,
+	},
+	{
+		path: '/signup/:traderID',
+		element: <SignUpPage/>,
 	},
 ]);
 
